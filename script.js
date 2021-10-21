@@ -1,3 +1,5 @@
+Vue.component('star-rating', VueStarRating.default);
+
 let app = new Vue({
     el: '#app',
     data: {
@@ -13,6 +15,7 @@ let app = new Vue({
         addedComment: '',
         addedDate: '',
         comments: {},
+        ratings: {},
     },
     created() {
       this.xkcd();
@@ -84,6 +87,15 @@ let app = new Vue({
             this.addedComment = '';
             this.addedDate = '';
         },
+        setRating(rating){
+          if (!(this.number in this.ratings))
+            Vue.set(this.ratings, this.number, {
+            sum: 0,
+            total: 0
+          });
+          this.ratings[this.number].sum += rating;
+          this.ratings[this.number].total += 1;
+        },
     },
     computed: {
         month() {
@@ -103,7 +115,16 @@ let app = new Vue({
           month[10] = "November";
           month[11] = "December";
           return month[this.current.month - 1];
-        }
+        },
+        average(){
+          if (!(this.number in this.ratings)){
+            return ("No ratings yet");
+          }else{
+            //console.log("sum = " + this.ratings[this.number].sum);
+            //console.log("total = ")
+            return (this.ratings[this.number].sum/this.ratings[this.number].total);
+          }
+        },
       },
     watch: {
         number(value, oldvalue) {

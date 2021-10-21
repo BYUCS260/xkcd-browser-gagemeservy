@@ -25,6 +25,8 @@
       <img v-bind:src="current.img" v-bind:alt="current.alt">
       <p>{{current.alt}}</p>
       <p><i>#{{current.num}}, drawn on {{current.day}} {{month}} {{current.year}}</i></p>
+      <star-rating v-bind:show-rating=false v-bind:increment=.5 active-color='red' @rating-selected ="setRating"></star-rating>
+      <p>Average rating: {{average}}</p>
       <h3>Add a Comment</h3>
       <form v-on:submit.prevent="addComment">
         <input v-model="addedName" placeholder="Name"></p>
@@ -42,6 +44,7 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/vue-star-rating/dist/VueStarRating.umd.min.js"></script>
   <script src="/script.js"></script>
 </body>
 <footer><a href = "https://github.com/BYUCS260/xkcd-browser-gagemeservy">Github Repository</a></footer>
